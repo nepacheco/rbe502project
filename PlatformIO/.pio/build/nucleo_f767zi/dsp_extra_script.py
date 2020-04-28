@@ -1,0 +1,2 @@
+Import('env')
+env.Prepend(CPPPATH=['C:/Users/nickp/.platformio/packages/framework-mbed/features/unsupported/dsp', 'C:/Users/nickp/.platformio/packages/framework-mbed/features/unsupported/dsp/cmsis_dsp', 'C:/Users/nickp/.platformio/packages/framework-mbed/features/unsupported/dsp/dsp'])
