@@ -8,7 +8,18 @@ options = odeset('RelTol',1e-4,'AbsTol',[1e-4, 1e-4, 1e-4, 1e-4]);
 
 %% PD Gravity comp using L for single notch
 x0= [1,1];
-tf = 75;
+tf = 20;
 params = [];
 options = odeset('RelTol',1e-4,'AbsTol',[1e-4, 1e-4]);
 [T,X] = ode45(@(t,x) ode_caar_l(t,x,params),[0 tf],x0, options);
+
+figure()
+title("Tendon Displacement over time");
+subplot(211)
+plot(T,X(:,1),'r-');
+xlabel("Time (s)");
+ylabel("Tendon Displacement (mm)")
+subplot(212)
+plot(T,X(:,2),'b-');
+xlabel("Time (s)");
+ylabel("Tendon Rate of Change (mm/s)")

@@ -12,34 +12,36 @@ n = 6;
 a = 1/(n*(y1 + y2));
 b = y1*a;
 
-P1 = [0;0;h-b*l];
-P2 = P1 + [(-b*l)*sin(a*l);0;(-b*l)*cos(a*l)];
-P3 = P2 + [(-b*l)*sin(2*a*l);0;(-b*l)*cos(2*a*l)];
-P4 = P3 + [(-b*l)*sin(3*a*l);0;(-b*l)*cos(3*a*l)];
-P5 = P4 + [(-b*l)*sin(4*a*l);0;(-b*l)*cos(4*a*l)];
-P6 = P5 + [(-b*l)*sin(5*a*l);0;(-b*l)*cos(5*a*l)];
+P1 = [(h-b*l)*sin(a*l/2);0;(h-b*l)*cos(a*l/2)];
+P2 = P1 + [(-b*l)*sin(1.5*a*l);0;(-b*l)*cos(1.5*a*l)];
+P3 = P2 + [(-b*l)*sin(2.5*a*l);0;(-b*l)*cos(2.5*a*l)];
+P4 = P3 + [(-b*l)*sin(3.5*a*l);0;(-b*l)*cos(3.5*a*l)];
+P5 = P4 + [(-b*l)*sin(4.5*a*l);0;(-b*l)*cos(4.5*a*l)];
+P6 = P5 + [(-b*l)*sin(5.5*a*l);0;(-b*l)*cos(5.5*a*l)];
 
-P1_dot = [0;0;b*l_dot];
-P2_dot = P1_dot + [(-b*l)*cos(a*l)*(a*l_dot) + (-b*l_dot)*sin(a*l);
+P1_dot = [(-b*l)*cos(a*l/2)*(a/2*l_dot) + (-b*l_dot)*sin(a*l/2);
+            0;
+            (b*l)*sin(a/2*l)*(a/2*l_dot) + (-b*l_dot)*cos(a/2*l)];
+P2_dot = P1_dot + [(-b*l)*cos(1.5*a*l)*(1.5*a*l_dot) + (-b*l_dot)*sin(1.5*a*l);
                     0;
-                   (b*l)*sin(a*l)*(a*l_dot) + (-b*l_dot)*cos(a*l)];
-P3_dot = P2_dot + [(-b*l)*cos(2*a*l)*(2*a*l_dot) + (-b*l_dot)*sin(2*a*l);
+                   (b*l)*sin(1.5*a*l)*(1.5*a*l_dot) + (-b*l_dot)*cos(1.5*a*l)];
+P3_dot = P2_dot + [(-b*l)*cos(2.5*a*l)*(2.5*a*l_dot) + (-b*l_dot)*sin(2.5*a*l);
                     0;
-                   (b*l)*sin(2*a*l)*(2*a*l_dot) + (-b*l_dot)*cos(2*a*l)];
-P4_dot = P3_dot + [(-b*l)*cos(3*a*l)*(3*a*l_dot) + (-b*l_dot)*sin(3*a*l);
+                   (b*l)*sin(2.5*a*l)*(2.5*a*l_dot) + (-b*l_dot)*cos(2.5*a*l)];
+P4_dot = P3_dot + [(-b*l)*cos(3.5*a*l)*(3*a*l_dot) + (-b*l_dot)*sin(3.5*a*l);
                     0;
-                   (b*l)*sin(3*a*l)*(3*a*l_dot) + (-b*l_dot)*cos(3*a*l)];
-P5_dot = P4_dot + [(-b*l)*cos(4*a*l)*(4*a*l_dot) + (-b*l_dot)*sin(4*a*l);
+                   (b*l)*sin(3.5*a*l)*(3.5*a*l_dot) + (-b*l_dot)*cos(3.5*a*l)];
+P5_dot = P4_dot + [(-b*l)*cos(4.5*a*l)*(4.5*a*l_dot) + (-b*l_dot)*sin(4.5*a*l);
                     0;
-                   (b*l)*sin(4*a*l)*(4*a*l_dot) + (-b*l_dot)*cos(4*a*l)];
-P6_dot = P5_dot + [(-b*l)*cos(5*a*l)*(5*a*l_dot) + (-b*l_dot)*sin(5*a*l);
+                   (b*l)*sin(4.5*a*l)*(4.5*a*l_dot) + (-b*l_dot)*cos(4.5*a*l)];
+P6_dot = P5_dot + [(-b*l)*cos(5.5*a*l)*(5.5*a*l_dot) + (-b*l_dot)*sin(5.5*a*l);
                     0;
-                   (b*l)*sin(5*a*l)*(5*a*l_dot) + (-b*l_dot)*cos(5*a*l)];
+                   (b*l)*sin(5.5*a*l)*(5.5*a*l_dot) + (-b*l_dot)*cos(5.5*a*l)];
 P3_dot = simplify(P3_dot,'Steps',20);
 P4_dot = simplify(P4_dot,'Steps',20);
 P5_dot = simplify(P5_dot,'Steps',20);
 P6_dot = simplify(P6_dot,'Steps',20);
-m = 1;
+syms m
 
 %% Energy equations
 syms k c real % spring and damper constants
@@ -75,3 +77,4 @@ vpa(subs(C,[l_dot,l],[1,1]),2)
 
 C = C + T_part_diff + R_diff;
 
+subs(G,[l,l_dot],[0,0])
