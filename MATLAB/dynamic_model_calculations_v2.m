@@ -13,30 +13,30 @@ a = 1/(n*(y1 + y2));
 b = y1*a;
 
 P1 = [(h-b*l)*sin(a*l/2);0;(h-b*l)*cos(a*l/2)];
-P2 = P1 + [(-b*l)*sin(1.5*a*l);0;(-b*l)*cos(1.5*a*l)];
-P3 = P2 + [(-b*l)*sin(2.5*a*l);0;(-b*l)*cos(2.5*a*l)];
-P4 = P3 + [(-b*l)*sin(3.5*a*l);0;(-b*l)*cos(3.5*a*l)];
-P5 = P4 + [(-b*l)*sin(4.5*a*l);0;(-b*l)*cos(4.5*a*l)];
-P6 = P5 + [(-b*l)*sin(5.5*a*l);0;(-b*l)*cos(5.5*a*l)];
+P2 = P1 + [(2*h-b*l)*sin(1.5*a*l);0;(2*h-b*l)*cos(1.5*a*l)];
+P3 = P2 + [(2*h-b*l)*sin(2.5*a*l);0;(2*h-b*l)*cos(2.5*a*l)];
+P4 = P3 + [(2*h-b*l)*sin(3.5*a*l);0;(2*h-b*l)*cos(3.5*a*l)];
+P5 = P4 + [(2*h-b*l)*sin(4.5*a*l);0;(2*h-b*l)*cos(4.5*a*l)];
+P6 = P5 + [(2*h-b*l)*sin(5.5*a*l);0;(2*h-b*l)*cos(5.5*a*l)];
 
 P1_dot = [(-b*l)*cos(a*l/2)*(a/2*l_dot) + (-b*l_dot)*sin(a*l/2);
             0;
             (b*l)*sin(a/2*l)*(a/2*l_dot) + (-b*l_dot)*cos(a/2*l)];
-P2_dot = P1_dot + [(-b*l)*cos(1.5*a*l)*(1.5*a*l_dot) + (-b*l_dot)*sin(1.5*a*l);
+P2_dot = P1_dot + [(2*h-b*l)*cos(1.5*a*l)*(1.5*a*l_dot) + (-b*l_dot)*sin(1.5*a*l);
                     0;
-                   (b*l)*sin(1.5*a*l)*(1.5*a*l_dot) + (-b*l_dot)*cos(1.5*a*l)];
-P3_dot = P2_dot + [(-b*l)*cos(2.5*a*l)*(2.5*a*l_dot) + (-b*l_dot)*sin(2.5*a*l);
+                   (-2*h + b*l)*sin(1.5*a*l)*(1.5*a*l_dot) + (-b*l_dot)*cos(1.5*a*l)];
+P3_dot = P2_dot + [(2*h-b*l)*cos(2.5*a*l)*(2.5*a*l_dot) + (-b*l_dot)*sin(2.5*a*l);
                     0;
-                   (b*l)*sin(2.5*a*l)*(2.5*a*l_dot) + (-b*l_dot)*cos(2.5*a*l)];
-P4_dot = P3_dot + [(-b*l)*cos(3.5*a*l)*(3*a*l_dot) + (-b*l_dot)*sin(3.5*a*l);
+                   (-2*h + b*l)*sin(2.5*a*l)*(2.5*a*l_dot) + (-b*l_dot)*cos(2.5*a*l)];
+P4_dot = P3_dot + [(2*h-b*l)*cos(3.5*a*l)*(3*a*l_dot) + (-b*l_dot)*sin(3.5*a*l);
                     0;
-                   (b*l)*sin(3.5*a*l)*(3.5*a*l_dot) + (-b*l_dot)*cos(3.5*a*l)];
-P5_dot = P4_dot + [(-b*l)*cos(4.5*a*l)*(4.5*a*l_dot) + (-b*l_dot)*sin(4.5*a*l);
+                   (-2*h + b*l)*sin(3.5*a*l)*(3.5*a*l_dot) + (-b*l_dot)*cos(3.5*a*l)];
+P5_dot = P4_dot + [(2*h-b*l)*cos(4.5*a*l)*(4.5*a*l_dot) + (-b*l_dot)*sin(4.5*a*l);
                     0;
-                   (b*l)*sin(4.5*a*l)*(4.5*a*l_dot) + (-b*l_dot)*cos(4.5*a*l)];
-P6_dot = P5_dot + [(-b*l)*cos(5.5*a*l)*(5.5*a*l_dot) + (-b*l_dot)*sin(5.5*a*l);
+                   (-2*h + b*l)*sin(4.5*a*l)*(4.5*a*l_dot) + (-b*l_dot)*cos(4.5*a*l)];
+P6_dot = P5_dot + [(2*h-b*l)*cos(5.5*a*l)*(5.5*a*l_dot) + (-b*l_dot)*sin(5.5*a*l);
                     0;
-                   (b*l)*sin(5.5*a*l)*(5.5*a*l_dot) + (-b*l_dot)*cos(5.5*a*l)];
+                   (-2*h + b*l)*sin(5.5*a*l)*(5.5*a*l_dot) + (-b*l_dot)*cos(5.5*a*l)];
 P3_dot = simplify(P3_dot,'Steps',20);
 P4_dot = simplify(P4_dot,'Steps',20);
 P5_dot = simplify(P5_dot,'Steps',20);
@@ -50,7 +50,7 @@ s0 = 5;
 T = 1/2*m*(P1_dot'*P1_dot + P2_dot'*P2_dot + P3_dot'*P3_dot +...
     P4_dot'*P4_dot + P5_dot'*P5_dot + P6_dot'*P6_dot);
 
-U = m*[0 0 g]*(P1 + P2 + P3 + P4 + P5 + P6) + 1/2*k*(6*(h-b*l + 1/2*a*l-s0)^2);
+U = -m*[0 0 g]*(P1 + P2 + P3 + P4 + P5 + P6) + 1/2*k*(6*(h-b*l + 1/2*a*l-s0)^2);
 
 R = 1/2*c*(6*(-b*l_dot + a*l_dot)^2);
 
@@ -76,5 +76,6 @@ C = vpa(subs(C,L,l),2);
 vpa(subs(C,[l_dot,l],[1,1]),2)
 
 C = C + T_part_diff + R_diff;
+%%
+vpa(subs(G,[l,l_dot,m,c,k],[0,0,1,1,1]),4)
 
-subs(G,[l,l_dot],[0,0])
