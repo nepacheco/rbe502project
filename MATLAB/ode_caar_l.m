@@ -1,6 +1,6 @@
 function dx = ode_caar_l(t,x,params)
 % Initial parameters
-qd = 2; qd_dot = 0;
+qd = 0.002; qd_dot = 0;
 Kp = 1;
 Kd = 1;
 

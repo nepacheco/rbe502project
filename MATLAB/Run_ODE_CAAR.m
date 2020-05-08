@@ -7,7 +7,7 @@ options = odeset('RelTol',1e-4,'AbsTol',[1e-4, 1e-4, 1e-4, 1e-4]);
 [T,X] = ode45(@(t,x) ode_caar(t,x,params),[0 tf],x0, options);
 
 %% PD Gravity comp using L for single notch
-x0= [1,1];
+x0= [0.000,0.001];
 tf = 20;
 params = [];
 options = odeset('RelTol',1e-4,'AbsTol',[1e-4, 1e-4]);

@@ -3,12 +3,11 @@ syms t real
 syms l l_dot l_dotdot real
 % syms y1 y2 h n
 % these conditions based on robot in MQP
-h = 5;
-y1 = 2.9564;
-y2 = 1.6423;
+h = 5/1000;
+y1 = 2.9564/1000;
+y2 = 1.6423/1000;
 g = 9.8;
 n = 6;
-
 a = 1/(n*(y1 + y2));
 b = y1*a;
 
@@ -45,14 +44,14 @@ syms m
 
 %% Energy equations
 syms k c real % spring and damper constants
-s0 = 5;
+s0 = .005;
 
 T = 1/2*m*(P1_dot'*P1_dot + P2_dot'*P2_dot + P3_dot'*P3_dot +...
     P4_dot'*P4_dot + P5_dot'*P5_dot + P6_dot'*P6_dot);
 
-U = -m*[0 0 g]*(P1 + P2 + P3 + P4 + P5 + P6) + 1/2*k*(6*(h-b*l + 1/2*a*l-s0)^2);
+U = -m*[0 0 g]*(P1 + P2 + P3 + P4 + P5 + P6) + 1/2*k*(6*(h-b*l + 1/2*0.0025*a*l-s0)^2);
 
-R = 1/2*c*(6*(-b*l_dot + a*l_dot)^2);
+R = 1/2*c*(6*(-b*l_dot + 0.0025*a*l_dot)^2);
 
 %% Dynamic Model
 syms l l_dot
@@ -70,10 +69,10 @@ temp_diff = diff(temp,t);
 C = subs(temp_diff,diff(l(t),t),l_dot);
 syms L real
 C = vpa(subs(C,l(t),L),2);
-vpa(subs(C,[l_dot,L],[1,1]),2)
+vpa(subs(C,[l_dot,L],[1,1]),2);
 syms l real
 C = vpa(subs(C,L,l),2);
-vpa(subs(C,[l_dot,l],[1,1]),2)
+vpa(subs(C,[l_dot,l],[1,1]),2);
 
 C = C + T_part_diff + R_diff;
 %%
